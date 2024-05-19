@@ -1,24 +1,17 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+// TrabalhoDBlackJack.java
 package com.mycompany.trabalhodblackjack;
 
-/**
- *
- * @author nikcs
- */
 import java.util.Scanner;
 
 public class TrabalhoDBlackJack {
     private Baralho baralho;
-    private Jogador jogador;
-    private Jogador dealer;
+    private JogadorBase jogador;
+    private JogadorBase dealer;
 
     public TrabalhoDBlackJack() {
         baralho = new Baralho();
         jogador = new Jogador("Jogador");
-        dealer = new Jogador("Dealer");
+        dealer = new JogadorComputador("Dealer");
     }
 
     public void iniciar() {
@@ -27,42 +20,36 @@ public class TrabalhoDBlackJack {
 
         boolean jogando = true;
         while (jogando) {
-            jogador.resetarMao();
-            dealer.resetarMao();
+            ((JogadorBase) jogador).resetarMao();
+            ((JogadorBase) dealer).resetarMao();
             baralho.embaralhar();
 
-            jogador.adicionarCarta(baralho.puxarCarta());
-            jogador.adicionarCarta(baralho.puxarCarta());
-            dealer.adicionarCarta(baralho.puxarCarta());
-            dealer.adicionarCarta(baralho.puxarCarta());
+            ((JogadorBase) jogador).adicionarCarta(baralho.puxarCarta());
+            ((JogadorBase) jogador).adicionarCarta(baralho.puxarCarta());
+            ((JogadorBase) dealer).adicionarCarta(baralho.puxarCarta());
+            ((JogadorBase) dealer).adicionarCarta(baralho.puxarCarta());
 
             System.out.println(jogador);
-            System.out.println("Dealer mostra " + dealer.getMao().get(0));
+            System.out.println("Dealer mostra " + ((JogadorBase) dealer).getMao().get(0));
 
             // Turno do jogador
-            while (jogador.getPontuacao() < 21) {
-                System.out.println("Você quer (1) Comprar ou (2) Parar?");
-                int escolha = scanner.nextInt();
-                if (escolha == 1) {
-                    jogador.adicionarCarta(baralho.puxarCarta());
-                    System.out.println(jogador);
-                } else {
-                    break;
-                }
+            while (((JogadorBase) jogador).getPontuacao() < 21 && ((JogadorBase) jogador).querPedirCarta()) {
+                ((JogadorBase) jogador).adicionarCarta(baralho.puxarCarta());
+                System.out.println(jogador);
             }
 
             // Turno do dealer
-            while (dealer.getPontuacao() < 17) {
-                dealer.adicionarCarta(baralho.puxarCarta());
+            while (((JogadorBase) dealer).getPontuacao() < 17) {
+                ((JogadorBase) dealer).adicionarCarta(baralho.puxarCarta());
             }
 
             // Determinar o vencedor
             System.out.println(dealer);
-            if (jogador.getPontuacao() > 21) {
+            if (((JogadorBase) jogador).getPontuacao() > 21) {
                 System.out.println("Jogador estourou! Dealer vence.");
-            } else if (dealer.getPontuacao() > 21 || jogador.getPontuacao() > dealer.getPontuacao()) {
+            } else if (((JogadorBase) dealer).getPontuacao() > 21 || ((JogadorBase) jogador).getPontuacao() > ((JogadorBase) dealer).getPontuacao()) {
                 System.out.println("Jogador vence!");
-            } else if (dealer.getPontuacao() > jogador.getPontuacao()) {
+            } else if (((JogadorBase) dealer).getPontuacao() > ((JogadorBase) jogador).getPontuacao()) {
                 System.out.println("Dealer vence!");
             } else {
                 System.out.println("Empate!");
