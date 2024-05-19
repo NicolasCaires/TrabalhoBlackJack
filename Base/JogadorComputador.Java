@@ -1,4 +1,3 @@
-// JogadorComputador.java
 package com.mycompany.trabalhodblackjack;
 
 public class JogadorComputador extends JogadorBase {
