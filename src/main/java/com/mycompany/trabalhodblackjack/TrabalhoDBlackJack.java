@@ -57,6 +57,7 @@ public class TrabalhoDBlackJack {
 
             System.out.println("Você quer jogar novamente? (1) Sim (2) Não");
             int jogarNovamente = scanner.nextInt();
+            scanner.nextLine(); // Consumir a nova linha
             if (jogarNovamente != 1) {
                 jogando = false;
             }
