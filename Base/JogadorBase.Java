@@ -1,5 +1,3 @@
-
-// JogadorBase.java
 package com.mycompany.trabalhodblackjack;
 
 import java.util.ArrayList;
