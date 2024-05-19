@@ -1,4 +1,3 @@
-// TrabalhoDBlackJack.java
 package com.mycompany.trabalhodblackjack;
 
 import java.util.Scanner;
@@ -7,49 +6,50 @@ public class TrabalhoDBlackJack {
     private Baralho baralho;
     private JogadorBase jogador;
     private JogadorBase dealer;
+    private Scanner scanner;
 
     public TrabalhoDBlackJack() {
         baralho = new Baralho();
-        jogador = new Jogador("Jogador");
+        scanner = new Scanner(System.in);
+        jogador = new Jogador("Jogador", scanner);
         dealer = new JogadorComputador("Dealer");
     }
 
     public void iniciar() {
-        Scanner scanner = new Scanner(System.in);
         System.out.println("Bem-vindo ao Blackjack!");
 
         boolean jogando = true;
         while (jogando) {
-            ((JogadorBase) jogador).resetarMao();
-            ((JogadorBase) dealer).resetarMao();
+            jogador.resetarMao();
+            dealer.resetarMao();
             baralho.embaralhar();
 
-            ((JogadorBase) jogador).adicionarCarta(baralho.puxarCarta());
-            ((JogadorBase) jogador).adicionarCarta(baralho.puxarCarta());
-            ((JogadorBase) dealer).adicionarCarta(baralho.puxarCarta());
-            ((JogadorBase) dealer).adicionarCarta(baralho.puxarCarta());
+            jogador.adicionarCarta(baralho.puxarCarta());
+            jogador.adicionarCarta(baralho.puxarCarta());
+            dealer.adicionarCarta(baralho.puxarCarta());
+            dealer.adicionarCarta(baralho.puxarCarta());
 
             System.out.println(jogador);
-            System.out.println("Dealer mostra " + ((JogadorBase) dealer).getMao().get(0));
+            System.out.println("Dealer mostra " + dealer.getMao().get(0));
 
             // Turno do jogador
-            while (((JogadorBase) jogador).getPontuacao() < 21 && ((JogadorBase) jogador).querPedirCarta()) {
-                ((JogadorBase) jogador).adicionarCarta(baralho.puxarCarta());
+            while (jogador.getPontuacao() < 21 && jogador.querPedirCarta()) {
+                jogador.adicionarCarta(baralho.puxarCarta());
                 System.out.println(jogador);
             }
 
             // Turno do dealer
-            while (((JogadorBase) dealer).getPontuacao() < 17) {
-                ((JogadorBase) dealer).adicionarCarta(baralho.puxarCarta());
+            while (dealer.getPontuacao() < 17) {
+                dealer.adicionarCarta(baralho.puxarCarta());
             }
 
             // Determinar o vencedor
             System.out.println(dealer);
-            if (((JogadorBase) jogador).getPontuacao() > 21) {
+            if (jogador.getPontuacao() > 21) {
                 System.out.println("Jogador estourou! Dealer vence.");
-            } else if (((JogadorBase) dealer).getPontuacao() > 21 || ((JogadorBase) jogador).getPontuacao() > ((JogadorBase) dealer).getPontuacao()) {
+            } else if (dealer.getPontuacao() > 21 || jogador.getPontuacao() > dealer.getPontuacao()) {
                 System.out.println("Jogador vence!");
-            } else if (((JogadorBase) dealer).getPontuacao() > ((JogadorBase) jogador).getPontuacao()) {
+            } else if (dealer.getPontuacao() > jogador.getPontuacao()) {
                 System.out.println("Dealer vence!");
             } else {
                 System.out.println("Empate!");
