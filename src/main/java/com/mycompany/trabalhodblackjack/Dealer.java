@@ -1,40 +1,22 @@
-import java.util.ArrayList;
+import java.util.Scanner;
 
-public class Dealer {
-    private String nome;
-    private ArrayList<Carta> mao;
-    private int pontuacao;
+public class Dealer extends Jogador {
 
     public Dealer(String nome) {
+        super();
         this.nome = nome;
-        this.mao = new ArrayList<>();
-        this.pontuacao = 0;
-    }
-
-    public void adicionarCarta(Carta carta) {
-        mao.add(carta);
-        pontuacao += carta.getPontos();
-    }
-
-    public void resetarMao() {
-        mao.clear();
-        pontuacao = 0;
-    }
-
-    public ArrayList<Carta> getMao() {
-        return mao;
-    }
-
-    public int getPontuacao() {
-        return pontuacao;
     }
 
     @Override
-    public String toString() {
-        return nome + " com a mão " + mao.toString() + " e pontuação " + pontuacao;
+    public void exibirMao() {
+        System.out.println("Mão do dealer:");
+        System.out.println(maoJogador.get(0)); // Mostra apenas a primeira carta
+        System.out.println("Carta oculta"); // A segunda carta do dealer é oculta
     }
 
     public boolean querPedirCarta() {
-        return getPontuacao() < 17;
+        // Regra do dealer: pedir carta até atingir 17 pontos ou mais
+        int pontuacao = calcularPontuacao();
+        return pontuacao < 17;
     }
 }
