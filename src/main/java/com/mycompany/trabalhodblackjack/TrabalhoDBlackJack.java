@@ -4,14 +4,14 @@ import java.util.Scanner;
 
 public class TrabalhoDBlackJack {
     private Baralho baralho;
-    private Jogador jogador;
-    private JogadorComputador dealer;
+    private JogadorBase jogador;
+    private JogadorBase dealer;
     private Scanner scanner;
 
     public TrabalhoDBlackJack() {
         baralho = new Baralho();
         scanner = new Scanner(System.in);
-        jogador = new Jogador("Jogador", scanner);
+        jogador = new JogadorUsuario("Jogador", scanner); // Agora estamos instanciando JogadorUsuario
         dealer = new JogadorComputador("Dealer");
     }
 
@@ -49,4 +49,25 @@ public class TrabalhoDBlackJack {
                 System.out.println("Jogador estourou! Dealer vence.");
             } else if (dealer.getPontuacao() > 21 || jogador.getPontuacao() > dealer.getPontuacao()) {
                 System.out.println("Jogador vence!");
-            } else if (dealer.getPontuacao()
+            } else if (dealer.getPontuacao() > jogador.getPontuacao()) {
+                System.out.println("Dealer vence!");
+            } else {
+                System.out.println("Empate!");
+            }
+
+            System.out.println("Você quer jogar novamente? (1) Sim (2) Não");
+            int jogarNovamente = scanner.nextInt();
+            if (jogarNovamente != 1) {
+                jogando = false;
+            }
+        }
+
+        System.out.println("Obrigado por jogar!");
+        scanner.close();
+    }
+
+    public static void main(String[] args) {
+        TrabalhoDBlackJack jogo = new TrabalhoDBlackJack();
+        jogo.iniciar();
+    }
+}
