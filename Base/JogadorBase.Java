@@ -1,40 +1,45 @@
-package com.mycompany.trabalhodblackjack;
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package com.mycompany.jogo21.base;
 
 import java.util.ArrayList;
 
-public abstract class JogadorBase {
-    protected String nome;
-    protected ArrayList<Carta> mao;
-    protected int pontuacao;
-
-    public JogadorBase(String nome) {
-        this.nome = nome;
-        this.mao = new ArrayList<>();
-        this.pontuacao = 0;
-    }
-
-    public void adicionarCarta(Carta carta) {
-        mao.add(carta);
-        pontuacao += carta.getPontos();
-    }
-
-    public void resetarMao() {
-        mao.clear();
-        pontuacao = 0;
-    }
-
-    public ArrayList<Carta> getMao() {
-        return mao;
-    }
-
-    public int getPontuacao() {
-        return pontuacao;
-    }
-
-    @Override
-    public String toString() {
-        return nome + " com a mão " + mao.toString() + " e pontuação " + pontuacao;
-    }
-
-    public abstract boolean querPedirCarta();
+/**
+ *
+ * @author LENOVO
+ */
+public abstract class Baralho {
+    
+    protected String[] nipes;
+    protected String[] valores;
+    protected ArrayList<Carta> cartas;
+    
+    /**
+     * Gerar lista de cartas
+     */
+    public abstract void gerarBaralho();
+    /**
+     * usar método shuffle da classe Colections 
+     */
+    public abstract void embaralhar();
+    /**
+     * entrega uma carta do baralho para a mão do jogador
+     * @return um objeto do tipo carta
+     */
+    public abstract Carta darCarta();
+    /**
+     * entrega uma lista de cartas para a mão do jogador
+     * @return ArrayList de cartas
+     */
+    public abstract ArrayList<Carta> darCartas();
+    /**
+     * exibir baralho. para controle interno ( testes)
+     */
+    protected abstract void exibirBaralho();
+    /**
+     * método interno. verifica se baralho está vazio e gera novo 
+     */
+    protected abstract void verificarEPreencherBaralho();
 }
