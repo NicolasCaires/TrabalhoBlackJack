@@ -1,12 +1,16 @@
-package com.mycompany.trabalhodblackjack;
 
-public class JogadorComputador extends JogadorBase {
-    public JogadorComputador(String nome) {
-        super(nome);
-    }
+public abstract class Carta {
+    
+    protected String nipe;
+    protected String valor;
+    protected int pontuacao;
+    
 
-    @Override
-    public boolean querPedirCarta() {
-        return getPontuacao() < 17; // Dealer pede carta se o valor da mão for menor que 17
-    }
+    public abstract String getNipe();    
+    public abstract String getValor();
+    public abstract int getPontuacao();
+    public abstract void setPontuacao(int pontuacao);    
+    public abstract void exibir();
+    
+    
 }
