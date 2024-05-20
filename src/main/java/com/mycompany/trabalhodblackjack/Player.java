@@ -1,40 +1,26 @@
-import java.util.ArrayList;
+import java.util.Scanner;
 
-public class Player {
-    private String nome;
-    private ArrayList<Carta> mao;
-    private int pontuacao;
+public class Player extends Jogador {
+    
+    private Scanner scanner;
 
-    public Player(String nome) {
+    public Player(String nome, Scanner scanner) {
+        super();
         this.nome = nome;
-        this.mao = new ArrayList<>();
-        this.pontuacao = 0;
-    }
-
-    public void adicionarCarta(Carta carta) {
-        mao.add(carta);
-        pontuacao += carta.getPontos();
-    }
-
-    public void resetarMao() {
-        mao.clear();
-        pontuacao = 0;
-    }
-
-    public ArrayList<Carta> getMao() {
-        return mao;
-    }
-
-    public int getPontuacao() {
-        return pontuacao;
+        this.scanner = scanner;
     }
 
     @Override
-    public String toString() {
-        return nome + " com a mão " + mao.toString() + " e pontuação " + pontuacao;
+    public void exibirMao() {
+        System.out.println("Mão do jogador " + nome + ":");
+        for (Carta carta : maoJogador) {
+            carta.exibir();
+        }
     }
 
     public boolean querPedirCarta() {
-        // Lógica para o jogador decidir se quer pedir carta ou não
+        System.out.println("Deseja pedir mais uma carta? (s/n)");
+        String resposta = scanner.next();
+        return resposta.equalsIgnoreCase("s");
     }
 }
