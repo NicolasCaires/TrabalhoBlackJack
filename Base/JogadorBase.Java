@@ -2,7 +2,7 @@ package com.mycompany.trabalhodblackjack;
 
 import java.util.ArrayList;
 
-abstract class JogadorBase {
+public abstract class JogadorBase {
     protected String nome;
     protected ArrayList<Carta> mao;
     protected int pontuacao;
