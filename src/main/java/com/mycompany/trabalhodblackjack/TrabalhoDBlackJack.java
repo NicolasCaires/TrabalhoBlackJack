@@ -6,12 +6,11 @@ public class TrabalhoDBlackJack {
     private Baralho baralho;
     private JogadorBase jogador;
     private JogadorBase dealer;
-    private Scanner scanner;
 
     public TrabalhoDBlackJack() {
-        baralho = new Baralho();
-        scanner = new Scanner(System.in);
-        jogador = new JogadorUsuario("Jogador", scanner); // Agora estamos instanciando JogadorUsuario
+        baralho = new BaralhoNormal();
+        Scanner scanner = new Scanner(System.in);
+        jogador = new JogadorUsuario("Jogador", scanner);
         dealer = new JogadorComputador("Dealer");
     }
 
