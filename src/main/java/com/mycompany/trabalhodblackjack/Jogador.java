@@ -1,13 +1,14 @@
 package com.mycompany.trabalhodblackjack;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
-public abstract class JogadorBase {
+public abstract class Jogador {
     protected String nome;
     protected ArrayList<Carta> mao;
     protected int pontuacao;
 
-    public JogadorBase(String nome) {
+    public Jogador(String nome) {
         this.nome = nome;
         this.mao = new ArrayList<>();
         this.pontuacao = 0;
@@ -37,4 +38,31 @@ public abstract class JogadorBase {
     }
 
     public abstract boolean querPedirCarta();
+}
+
+class Dealer extends Jogador {
+    public Dealer(String nome) {
+        super(nome);
+    }
+
+    @Override
+    public boolean querPedirCarta() {
+        return getPontuacao() < 17;
+    }
+}
+
+class Player extends Dealer {
+    private Scanner scanner;
+
+    public Player(String nome, Scanner scanner) {
+        super(nome);
+        this.scanner = scanner;
+    }
+
+    @Override
+    public boolean querPedirCarta() {
+        System.out.println("Você quer (1) Comprar ou (2) Parar?");
+        int escolha = scanner.nextInt();
+        return escolha == 1;
+    }
 }
